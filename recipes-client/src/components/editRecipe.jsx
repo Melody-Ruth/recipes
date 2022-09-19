@@ -111,7 +111,7 @@ export default function EditRecipe() {
     console.log("Edited recipe: ");
     console.log(editedRecipe);
  
-    await fetch("http://localhost:5000/update/${params.id}", {
+    await fetch(`http://localhost:5000/update/${params.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

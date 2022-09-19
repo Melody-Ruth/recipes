@@ -1,29 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Card, Typography } from '@mui/material';
+import { IconButton, Card, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 const Recipe = (props) => (
   <Card className="recipeCard">
-    <div className="textBox">
-      <Typography variant="h5" className="recipeText" color="secondary" align="center">{props.recipe.name}</Typography>
+    <div className="textSection">
+      <div className="textBox">
+        <Typography variant="h5" className="recipeText" color="secondary" align="center">{props.recipe.name}</Typography>
+      </div>
+      <div className="textBox">
+        <Typography variant="p" className="recipeText">Num. of meals: {props.recipe.meals}</Typography>
+      </div>
+      <div className="textBox">
+        <Typography variant="p" className="recipeText">Labels: {props.recipe.labels.map((recipe) => {return (recipe + " ");})}</Typography>
+      </div>
+      <div className="textBox">
+        <Typography variant="p" className="recipeText">Notes: {props.recipe.notes}</Typography>
+      </div>
     </div>
-    <div className="textBox">
-      <Typography variant="p" className="recipeText">Num. of meals: {props.recipe.meals}</Typography>
+    <div className="iconSection">
+      <Link to={`/edit/${props.recipe._id}`}> 
+        <IconButton><EditIcon/></IconButton>
+      </Link>
+      <IconButton onClick={() => {
+          props.deleteRecipe(props.recipe._id);
+        }}>
+        <DeleteIcon/>
+      </IconButton>
     </div>
-    <div className="textBox">
-      <Typography variant="p" className="recipeText">Labels: {props.recipe.labels.map((recipe) => {return (recipe + " ");})}</Typography>
-    </div>
-    <div className="textBox">
-      <Typography variant="p" className="recipeText">Notes: {props.recipe.notes}</Typography>
-    </div>
-    <Link className="btn btn-link" to={`/edit/${props.recipe._id}`}>Edit</Link> |
-     <button className="btn btn-link"
-       onClick={() => {
-         props.deleteRecipe(props.recipe._id);
-       }}
-     >
-       Delete
-     </button>
   </Card>
  );
  
@@ -76,7 +82,6 @@ export default function RecipeList() {
  // This following section will display the table with the recipes of individuals.
  return (
    <div>
-     <h3>Recipe List</h3>
      <div className="recipeContainer">
       {recipeList()}
      </div>

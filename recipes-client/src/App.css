@@ -43,10 +43,17 @@
 
 .recipeCard {
     margin: 1em;
-    display: inline-block;
     min-height: 30vh;
     width: 20vw;
     padding: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.iconSection {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .recipeContainer {
