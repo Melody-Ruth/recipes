@@ -11,10 +11,13 @@ const Recipe = (props) => (
         <Typography variant="h5" className="recipeText" color="secondary" align="center">{props.recipe.name}</Typography>
       </div>
       <div className="textBox">
+        <Typography variant="p" className="recipeText">Ingredients: {props.recipe.ingredients.map((ingredient) => {return (ingredient.quantity + " " + ingredient.name) + ", ";})}</Typography>
+      </div>
+      <div className="textBox">
         <Typography variant="p" className="recipeText">Num. of meals: {props.recipe.meals}</Typography>
       </div>
       <div className="textBox">
-        <Typography variant="p" className="recipeText">Labels: {props.recipe.labels.map((recipe) => {return (recipe + " ");})}</Typography>
+        <Typography variant="p" className="recipeText">Labels: {props.recipe.labels.map((recipe) => {return (recipe + ", ");})}</Typography>
       </div>
       <div className="textBox">
         <Typography variant="p" className="recipeText">Notes: {props.recipe.notes}</Typography>

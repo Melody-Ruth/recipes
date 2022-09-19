@@ -17,11 +17,24 @@ const Label = (props) => {
   </div>
  );
 }
+
+const Ingredient = (props) => {
+  const theme = useTheme();
+  return (
+  <div className="addedItem" style={{ backgroundColor: theme.palette.secondary.main }} >
+    <div className="textBox">
+      <Typography variant="p" className="recipeText" color="white" align="center">{props.ingredient.quantity} {props.ingredient.name}</Typography>
+    </div>
+    <IconButton aria-label="delete" id="deleteIngredientButton" onClick={props.deleteIngredient}><ClearIcon/></IconButton>
+  </div>
+ );
+}
  
 export default function EditRecipe() {
   const [form, setForm] = useState({
     name: "",
     meals: 0,
+    ingredients: [],
     labels: [],
     notes: "",
   });
@@ -101,6 +114,52 @@ export default function EditRecipe() {
     setLabelForm({ label: "" });
     console.log(form);
   }
+  
+  // Ingredients:
+  const [ingredientForm, setIngredientForm] = useState({
+    name: "",
+    quantity: "",
+  });
+
+  function updateIngredientForm(value) {
+    return setIngredientForm((prev) => {
+      return { ...prev, ...value };
+    });
+  }
+
+  function ingredientList() {
+    return form.ingredients.map((ingredient) => {
+      return (
+        <Ingredient
+          ingredient={ingredient}
+          deleteIngredient={() => deleteIngredient(ingredient.name,ingredient.quantity)}
+          key={ingredient.quantity+ingredient.name}
+        />
+      );
+    });
+  }
+
+  async function deleteIngredient(name, quantity) {
+    const newIngredients = form.ingredients.filter((el) => (el.name !== name || el.quantity !== quantity) );
+    updateForm({ingredients: newIngredients});
+  }
+
+  async function onSubmitIngredient(e) {
+    e.preventDefault();
+
+    const newIngredient = { ...ingredientForm };
+    const newIngredientList = [...form.ingredients, newIngredient]
+
+    updateForm({ ingredients: newIngredientList});
+
+    setIngredientForm({ name: "", quantity: "" });
+  }
+
+  function updateForm(value) {
+    return setForm((prev) => {
+      return { ...prev, ...value };
+    });
+  }
  
   // This function will handle the submission.
   async function onSubmit(e) {
@@ -123,7 +182,7 @@ export default function EditRecipe() {
       return;
     });
  
-    setForm({ name: "", meals: 0, labels: [], notes: "" });
+    setForm({ name: "", meals: 0, labels: [], ingredients: [], notes: "" });
     navigate("/");
   }
  
@@ -136,6 +195,14 @@ export default function EditRecipe() {
         </div>
         <form className="form" onSubmit={onSubmit} component="form">
             <TextField label="Name" variant="outlined" style={{marginBottom: "2em"}} required onChange={(e) => updateForm({ name: e.target.value })} value={form.name}/>
+            <div className="miniForm">
+              <div className="addedItems">{ingredientList()}</div>
+              <div className="formLineContainer">
+                <TextField label="Quantity" variant="outlined" style={{marginBottom: "2em", marginRight: "1em"}} onChange={(e) => updateIngredientForm({ quantity: e.target.value })} value={ingredientForm.quantity}/>
+                <TextField label="Ingredient" variant="outlined" style={{marginBottom: "2em"}} onChange={(e) => updateIngredientForm({ name: e.target.value })} value={ingredientForm.name}/>
+                <IconButton color="primary" aria-label="add" id="submitIngredientButton" onClick={onSubmitIngredient}><AddCircleIcon fontSize="large" /></IconButton>
+              </div>
+            </div>
             <TextField label="Number of meals" variant="outlined" style={{marginBottom: "2em"}} required onChange={(e) => updateForm({ meals: e.target.value })} value={form.meals} type="number"/>
             <div className="miniForm">
               <div className="addedItems">{labelList()}</div>

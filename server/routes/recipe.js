@@ -43,6 +43,7 @@ recipeRoutes.route("/recipe/add").post(function (req, response) {
    name: req.body.name,
    meals: req.body.meals,
    labels: req.body.labels,
+   ingredients: req.body.ingredients,
    notes: req.body.notes,
  };
  db_connect.collection("recipes").insertOne(myobj, function (err, res) {
@@ -60,6 +61,7 @@ recipeRoutes.route("/update/:id").post(function (req, response) {
      name: req.body.name,
      meals: req.body.meals,
      labels: req.body.labels,
+     ingredients: req.body.ingredients,
      notes: req.body.notes,
    },
  };
