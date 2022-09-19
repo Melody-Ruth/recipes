@@ -1,0 +1,71 @@
+.mainContainer {
+    overflow: auto;
+    min-height: 100vh;
+    background-size: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+.appContainer {
+    overflow: auto;
+    min-height: 100vh;
+    background-size: 100%;
+    background-image: url(../public/backdrop2.jpg);
+}
+
+.formCard {
+    width: 50%;
+    padding: 1.5em;
+    margin: 1em;
+    min-height: 50vh;
+    min-width: 30vw;
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.miniForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.formLineContainer {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+}
+
+.recipeCard {
+    margin: 1em;
+    display: inline-block;
+    min-height: 30vh;
+    width: 20vw;
+    padding: 1em;
+}
+
+.recipeContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+.addedItem {
+    display: flex;
+    align-items: center;
+    border-radius: 0.2em;
+    width: fit-content;
+    margin-right: 0.3em;
+    margin-bottom: 1em;
+    padding-left: 0.6em;
+}
+
+.addedItems {
+    display: flex;
+    flex-wrap: wrap;
+}
