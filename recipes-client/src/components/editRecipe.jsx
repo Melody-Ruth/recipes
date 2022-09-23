@@ -5,30 +5,8 @@ import { IconButton, Button, Card, TextField, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ClearIcon from '@mui/icons-material/Clear';
-
-const Label = (props) => {
-  const theme = useTheme();
-  return (
-  <div className="addedItem" style={{ backgroundColor: theme.palette.secondary.main }} >
-    <div className="textBox">
-      <Typography variant="p" className="recipeText" color="white" align="center">{props.label}</Typography>
-    </div>
-    <IconButton aria-label="delete" id="deleteLabelButton" onClick={props.deleteLabel}><ClearIcon/></IconButton>
-  </div>
- );
-}
-
-const Ingredient = (props) => {
-  const theme = useTheme();
-  return (
-  <div className="addedItem" style={{ backgroundColor: theme.palette.secondary.main }} >
-    <div className="textBox">
-      <Typography variant="p" className="recipeText" color="white" align="center">{props.ingredient.quantity} {props.ingredient.name}</Typography>
-    </div>
-    <IconButton aria-label="delete" id="deleteIngredientButton" onClick={props.deleteIngredient}><ClearIcon/></IconButton>
-  </div>
- );
-}
+import Label from './label';
+import Ingredient from './ingredient';
  
 export default function EditRecipe() {
   const [form, setForm] = useState({
