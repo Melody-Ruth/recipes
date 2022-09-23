@@ -84,10 +84,13 @@ export default function RecipeList() {
  
  // This following section will display the table with the recipes of individuals.
  return (
-   <div>
-     <div className="recipeContainer">
+    <div className="recipeListContainer">
+    <Card className="filterCard" sx={{ borderRadius: 0 }}>
+      Filter Recipes
+    </Card>
+    <div className="recipeContainer">
       {recipeList()}
-     </div>
-   </div>
+    </div>
+    </div>
  );
 }

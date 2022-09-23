@@ -13,6 +13,8 @@
     min-height: 100vh;
     background-size: 100%;
     background-image: url(../public/backdrop2.jpg);
+    display: flex;
+    flex-direction: column;
 }
 
 .formCard {
@@ -43,8 +45,10 @@
 
 .recipeCard {
     margin: 1em;
+    margin-left: 2em;
     min-height: 30vh;
-    width: 18em;
+    width: 16em;
+    height: 16em;
     padding: 1em;
     display: flex;
     flex-direction: column;
@@ -59,7 +63,12 @@
 .recipeContainer {
     display: flex;
     flex-wrap: wrap;
-    margin: auto;
+    justify-content: flex-start;
+}
+
+.recipeListContainer {
+    display: flex;
+    flex: 1;
 }
 
 .addedItem {
@@ -79,4 +88,8 @@
 
 .textBox {
     margin-bottom: 0.25em;
+}
+
+.filterCard {
+    width: 20em;
 }
