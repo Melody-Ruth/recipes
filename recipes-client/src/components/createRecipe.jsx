@@ -5,7 +5,8 @@ import { Button, IconButton, Card, TextField, Typography } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Label from './label';
 import Ingredient from './ingredient';
- 
+import IngredientInput from './ingredientInput';
+
 export default function CreateRecipe() {
   const [form, setForm] = useState({
     name: "",
@@ -62,6 +63,7 @@ export default function CreateRecipe() {
   });
 
   function updateIngredientForm(value) {
+    console.log(ingredientForm);
     return setIngredientForm((prev) => {
       return { ...prev, ...value };
     });
@@ -139,7 +141,7 @@ export default function CreateRecipe() {
               <div className="addedItems">{ingredientList()}</div>
               <div className="formLineContainer">
                 <TextField label="Quantity" variant="outlined" style={{marginBottom: "2em", marginRight: "1em"}} onChange={(e) => updateIngredientForm({ quantity: e.target.value })} value={ingredientForm.quantity}/>
-                <TextField label="Ingredient" variant="outlined" style={{marginBottom: "2em"}} onChange={(e) => updateIngredientForm({ name: e.target.value })} value={ingredientForm.name}/>
+                <IngredientInput changeToParent={(newName) => {updateIngredientForm({name: newName})}} />
                 <IconButton color="primary" aria-label="add" id="submitIngredientButton" onClick={onSubmitIngredient}><AddCircleIcon fontSize="large" /></IconButton>
               </div>
             </div>

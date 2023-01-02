@@ -7,9 +7,6 @@ import '../App.css';
 import React from 'react';
 import myTheme from "./myTheme";
 import { Link } from 'react-router-dom';
- 
-// We import NavLink to utilize the react router.
-import { NavLink } from "react-router-dom";
 
 const NavBar = ({}) => {
   return (

@@ -36,6 +36,12 @@
     flex-direction: column;
 }
 
+.miniFormFilter {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}
+
 .formLineContainer {
     width: 100%;
     display: flex;
@@ -92,4 +98,5 @@
 
 .filterCard {
     width: 20em;
+    min-width: 22vw;
 }

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { IconButton, Card, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import RecipeFilter from "./recipeFilter";
 
 const Recipe = (props) => (
   <Card className="recipeCard">
@@ -37,11 +38,30 @@ const Recipe = (props) => (
  );
  
 export default function RecipeList() {
- const [recipes, setRecipes] = useState([]);
+  const [recipes, setRecipes] = useState([]);
+  const [originalRecipes, setOriginalRecipes] = useState([]);
+  const [filter, setFilter] = useState({
+    labels: [],
+  });
+
+  const applyFilter = (allRecipes,newFilter) => {
+    console.log("filtering");
+    allRecipes = allRecipes.filter(a => newFilter.labels.every(label => a.labels.includes(label)));
+    const pretendFilter = {labels: ["expensive"]};
+    return allRecipes;
+  }
+
+  const updateFilter = (newFilter) => {
+    setFilter((prev) => {
+      return { ...prev, ...newFilter };
+    });
+    setRecipes(applyFilter(originalRecipes,{ ...filter, ...newFilter }));
+  }
  
  // This method fetches the recipes from the database.
  useEffect(() => {
-   async function getRecipes() {
+   async function getRecipes(_callback) {
+    console.log("started fetching");
      const response = await fetch(`http://localhost:5000/recipe/`);
  
      if (!response.ok) {
@@ -52,12 +72,14 @@ export default function RecipeList() {
  
      const recipes = await response.json();
      setRecipes(recipes);
+     setOriginalRecipes(recipes);
+     _callback();
    }
  
-   getRecipes();
- 
+   getRecipes(() => {setRecipes(applyFilter(recipes,filter))});
+   
    return;
- }, [recipes.length]);
+ }, [originalRecipes.length]);
  
  // This method will delete a recipe
  async function deleteRecipe(id) {
@@ -67,6 +89,8 @@ export default function RecipeList() {
  
    const newRecipes = recipes.filter((el) => el._id !== id);
    setRecipes(newRecipes);
+   const newOriginalRecipes = originalRecipes.filter((el) => el._id !== id);
+   setOriginalRecipes(newOriginalRecipes);
  }
  
  // This method will map out the recipes on the table
@@ -85,9 +109,7 @@ export default function RecipeList() {
  // This following section will display the table with the recipes of individuals.
  return (
     <div className="recipeListContainer">
-    <Card className="filterCard" sx={{ borderRadius: 0 }}>
-      Filter Recipes
-    </Card>
+    <RecipeFilter updateFilter = {(newLabels) => {updateFilter({labels: newLabels})}}/>
     <div className="recipeContainer">
       {recipeList()}
     </div>

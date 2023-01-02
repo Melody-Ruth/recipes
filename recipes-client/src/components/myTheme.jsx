@@ -11,6 +11,9 @@ const myTheme = createTheme({
     secondary: {
       main: "#ff8337",
     },
+    tertiary: {
+      main: "#682c89",
+    },
     contrastThreshold: 3,
     tonalOffset: 0.2,
     background: {
